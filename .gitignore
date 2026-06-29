@@ -1,0 +1,16 @@
+# macOS / editor
+.DS_Store
+*.swp
+*.swo
+
+# Python Rerank 本地环境
+rerank-service/.venv/
+rerank-service/__pycache__/
+rerank-service/*.pyc
+rerank-service/rerank.log
+rerank-service/rerank.pid
+
+# 本地覆盖（可选，勿提交密钥）
+.env
+.env.local
+docker-compose.override.yml
