@@ -23,6 +23,12 @@ security = HTTPBearer(auto_error=False)
 
 
 def pick_device() -> str:
+    # 默认优先 CPU：本机 MPS + Ollama + 大 Rerank 模型同时跑时易把整机拖死
+    forced = os.environ.get("RERANK_DEVICE", "").strip().lower()
+    if forced in {"cpu", "mps", "cuda"}:
+        return forced
+    if os.environ.get("RERANK_FORCE_CPU", "1") == "1":
+        return "cpu"
     if torch.backends.mps.is_available():
         return "mps"
     if torch.cuda.is_available():
